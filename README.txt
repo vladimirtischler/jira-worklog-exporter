@@ -1,6 +1,6 @@
 V tomto subore je popisany postup ako rozbehat skript. 
 
-instalacia python-u:
+INSTALACIA python-u:
 
 WINDOWS:
 na windows som uz mal nainstalovany python tak presny prikaz neviem ale na google isto bude alebo chatGPT isto pomoze
@@ -11,7 +11,7 @@ LINUX:
 MACOS:
 nemam MAC, tak neviem prikaz
 
-instalacia kniznice pandas pre spravu excel suborov:
+INSTALACIA kniznice pandas pre spravu excel suborov:
 
 WINDOWS:
 pip install pandas
