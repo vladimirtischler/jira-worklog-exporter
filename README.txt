@@ -6,8 +6,6 @@ WINDOWS:
 na windows som uz mal nainstalovany python tak presny prikaz neviem ale na google isto bude alebo chatGPT isto pomoze
 
 LINUX:
-sudo apt update
-sudo apt upgrade
 sudo apt install python3
 
 MACOS:
