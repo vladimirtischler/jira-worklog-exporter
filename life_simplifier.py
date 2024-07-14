@@ -22,12 +22,8 @@ end_at = input("Enter end date of period for timesheet(format: YYYY-MM-DD): ")
 file = open(TOKEN_FILE, 'r')
 token = file.read()
 
-# Convert time format from 'HH:MM' to total minutes for each cell in date columns
 def seconds_to_minutes(seconds):
     return seconds // 60
-
-# Create the output DataFrame
-output_data = []
 
 def convertion_to_12_hour_format(start_hour, time_worked):
     hours = time_worked // MINUTES_IN_HOUR
@@ -62,6 +58,7 @@ if response.status_code != 200:
 else:
     data = response.json()
     worklog_map = {}
+    output_data = []
 
     for record in data:
         date_str = record['started'].split('T')[0]
@@ -71,11 +68,11 @@ else:
             worklog_map[date_str] = 0
 
         worklog_map[date_str] += seconds_to_minutes(time_spent)
+
     worklog_map = sorted(worklog_map.items())
 
     for date, total_minutes in worklog_map:
-
-        # Convert dates to accessible format
+        # Convert dates to accessible format for Humanity
         date_obj = datetime.strptime(date, "%Y-%m-%d")
         date = date_obj.strftime("%m/%d/%Y")
 
