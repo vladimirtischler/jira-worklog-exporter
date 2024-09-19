@@ -28,6 +28,13 @@ Teraz by sa uz malo dat spustit skript life_simplifier.py.
 Vygenerovanie autorizacneho tokenu v Jira Cloud a nasledne ulozenie do suboru pre zjednodusenie:
 
 Pred spustenim skriptu vytvorime subor s nazvom 'api_token' v adresari kde mame ulozeny aj skript. Nasledne si v Jira Cloud vygenerujeme API token. Token vygenerujeme nasledne, klikneme v pravom hornom rohu na ikony nasho profilu, potom vyberieme My Work, nasledne v lavom panely vyberieme API tokens a tam vidime na pravo button create token. Ked stlacime toto tlacidlo, tak sa nam vygeneruje API token, ktory vlozime do suboru api_token. Tento token vkladame do suboru preto, lebo ak by sme si ho neulozili tak v Jire sa uz spatne ku nemu nedostaneme a tak by sme si museli za kazdym vygenerovat novy token, co je trocha otravne.
+Vytvorime taktiez aj subor 'personal_data', ktory bude mat tvar:
+name:Neznamy, Jan
+email:jan.neznamy@email.sk
+notes:Praca na ulohach
+schedule:pozicia
+remote_site:pracovisko
+Tento subor nam ulahci, aby sme nemuseli kazdy mesiac pisat tie iste udaje.
 
 SPUSTENIE SKRIPTU:
 
@@ -42,7 +49,7 @@ python3 life_simplifier.py
 MACOS:
 nemam, tak neviem presny prikaz 
 
-Po tomto prikaze vypisete udaje ako je meno, email, poznamka, ktora sa priradi ku kazdemu logu dna, adresa, rola a obdobie, za ktore chceme vygenerovat worklog. Po tomto kroku, ak sa vsetko vykonalo spravne, by sa mal uz vytvorit finalny subor s nazvom timesheet ako vystup zo skriptu. Tento subor je uz validny ako vstupny subor do humanity.
+Po tomto prikaze vypisete zaciatok a koniec obdobia, za ktore chcete vygenerovat dochadzku. Po tomto kroku, ak sa vsetko vykonalo spravne, by sa mal uz vytvorit finalny subor s nazvom timesheet ako vystup zo skriptu. Tento subor je uz validny ako vstupny subor do humanity.
 POZOR: vzdy sa kazdy den rata od 8:00am pre zjednodusenie, ale pocet odpracovanych hodin v danom dni sa stotoznuje. Ide o to, ak ste mali zapisane, ze ste zacali pracovat napriklad od 10:00am, tak vam aj tak tento den zapise a zacne od 8:00am vo vystupnom .csv subore. Diskutoval som to s Michalom a nemal by byt s tym problem minimalne pre brigadnikov.
 
 PS: Dufam ze som vam aspon trocha zjednodusil zivot s nahravanim hodin do humanity
