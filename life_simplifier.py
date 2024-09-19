@@ -11,11 +11,12 @@ TOKEN_FILE = 'api_token'
 PERSONAL_DATA_FILE = 'personal_data'
 
 # Enter some data from user
-personal_data_file = open(PERSONAL_DATA_FILE, 'r')
+personal_data_file = open(PERSONAL_DATA_FILE, 'r', encoding='utf-8')
 map_personal_data = {}
 for line in personal_data_file:
     data = line.split(":")
-    map_personal_data[data[0]] = data[1]
+    map_personal_data[data[0].strip()] = data[1].strip()
+personal_data_file.close()
 
 # Validate mandatory attributes in map
 if map_personal_data.get('email') == None:
@@ -92,8 +93,8 @@ else:
 
         start_time = '08:00am'
         end_time = convertion_to_12_hour_format(START_HOUR, total_minutes)
-        # row = [name, date, start_time, end_time, notes, schedule, remote_site]
-        # output_data.append(row)
+        row = [map_personal_data['name'], date, start_time, end_time, map_personal_data['notes'], map_personal_data['schedule'], map_personal_data['remote_site']]
+        output_data.append(row)
 
     output_df = pd.DataFrame(output_data,
                              columns=["name", "date", "clockin", "clockout", "notes", "schedule", "remote site"])
