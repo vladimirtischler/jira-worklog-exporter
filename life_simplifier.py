@@ -8,19 +8,34 @@ HOUR_12_FORMAT = 12
 START_HOUR = 8
 URL_WORKLOG = 'https://api.clockwork.report/v1/worklogs'
 TOKEN_FILE = 'api_token'
+PERSONAL_DATA_FILE = 'personal_data'
 
 # Enter some data from user
-name = input('Enter your name(format: "last name, first name"): ')
-email = input('Enter your email: ')
-notes = input("Enter your note for every day(e.g. Praca na ulohach): ")
-schedule = input("Enter your schedule(e.g. CBDO - Pelikan/Codeblocks Platform Team): ")
-remote_site = input("Enter your address for every day(e.g. home office address): ")
+personal_data_file = open(PERSONAL_DATA_FILE, 'r', encoding='utf-8')
+map_personal_data = {}
+for line in personal_data_file:
+    data = line.split(":")
+    map_personal_data[data[0].strip()] = data[1].strip()
+personal_data_file.close()
+
+# Validate mandatory attributes in map
+if map_personal_data.get('email') == None:
+    raise Exception('Email is mandatory')
+if map_personal_data.get('name') == None:
+    raise Exception('Name is mandatory')
+if map_personal_data.get('notes') == None:
+    raise Exception('Notes is mandatory')
+if map_personal_data.get('schedule') == None:
+    raise Exception('Schedule is mandatory')
+if map_personal_data.get('remote_site') == None:
+    raise Exception('Remote site is mandatory')
+
 start_at = input("Enter start date of period for timesheet(format: YYYY-MM-DD): ")
 end_at = input("Enter end date of period for timesheet(format: YYYY-MM-DD): ")
 
 # Load API token from api_token file
-file = open(TOKEN_FILE, 'r')
-token = file.read()
+token_file = open(TOKEN_FILE, 'r')
+token = token_file.read()
 
 def seconds_to_minutes(seconds):
     return seconds // 60
@@ -50,7 +65,7 @@ def curl_request_get_worklog(url, start_at, end_at, email, token):
     response = requests.get(url, params=params, headers=headers)
     return response
 
-response = curl_request_get_worklog(URL_WORKLOG, start_at, end_at, email, token)
+response = curl_request_get_worklog(URL_WORKLOG, start_at, end_at, map_personal_data.get('email', ""), token)
 if response.status_code != 200:
     print(f'Error: {response.status_code}')
     print(response.text)
@@ -78,7 +93,7 @@ else:
 
         start_time = '08:00am'
         end_time = convertion_to_12_hour_format(START_HOUR, total_minutes)
-        row = [name, date, start_time, end_time, notes, schedule, remote_site]
+        row = [map_personal_data['name'], date, start_time, end_time, map_personal_data['notes'], map_personal_data['schedule'], map_personal_data['remote_site']]
         output_data.append(row)
 
     output_df = pd.DataFrame(output_data,
